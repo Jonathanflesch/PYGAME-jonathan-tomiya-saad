@@ -5,6 +5,8 @@ width = 700
 height = 400
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Planet Pong')
+jog1 = input('Quem irá jogar do lado direito?')
+jog2 = input('Quem irá jogar do lado esquerdo?')
 
 width_planets = 25
 height_planets = 25
@@ -163,10 +165,15 @@ while game:
     window.blit(escolhido.image, escolhido.rect)
     if player1_score >= 3 or player2_score >= 3:
         game = False
+    if player1_score == 3:
+        winner = jog1
+    if player2_score == 3:
+        winner = jog2
 
     pygame.display.update()
 #Loop Tela game over---------------------------
 game = True
+winner_txt = Inicio_font.render(f'{winner} ganhou', False, preto)
 game_over_txt = Inicio_font.render('GAME OVER', False, preto)
 while game and (player1_score >= 3 or player2_score >= 3):
     for event in pygame.event.get():
@@ -174,5 +181,6 @@ while game and (player1_score >= 3 or player2_score >= 3):
             game = False
     window.fill((255,255,255))
     window.blit(game_over_txt, (100,100))
+    window.blit(winner_txt, (50, 300))
     pygame.display.update()
 pygame.quit()
